@@ -1,3 +1,4 @@
+/* test */
 // プラグインを利用するためにwebpackを読み込んでおく
 const webpack = require('webpack');
 
