@@ -1,0 +1,9 @@
+node_modules/
+bootstrap-5.0.0-beta1
+bootstrap-5.0.0-beta1-examples
+
+yarn-error.log
+yarn.lock
+.DS_Store
+.python-version
+package-locl.json
