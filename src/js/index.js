@@ -1,21 +1,14 @@
-const echo = (text) => {
-  return text + ": Me Too";
-
-};
-
-const request_callback = (text) => {
-  let callback = echo(text);
-  return callback;
-
-};
+import webApiCaller from './module/webApiCaller';
 
 const get_talk = () => {
   const $final_talk = document.getElementsByClassName("final");
   if ($final_talk.length !== 0) {
     if(last_talk !== $final_talk[$final_talk.length - 1].textContent){
       last_talk = $final_talk[$final_talk.length - 1].textContent;
-      add_response(request_callback(last_talk));
-
+      (async ()=> {
+        let result = await wac.asyncRequestCallback(last_talk);
+        add_response(result.response_voice);
+      })();
     }
   }
 };
@@ -30,14 +23,15 @@ const add_response = (text) => {
 
 };
 
-const remove_all_response = () => {
-  const $response = document.getElementById("response");
+const remove_all_response = (id) => {
+  const $response = document.getElementById(id);
   while ($response.firstChild) {
    $response.removeChild($response.firstChild);
   
   }
 };
 
+let wac = new webApiCaller("http://localhost:8000");
 let speechRecognition = new webkitSpeechRecognition(); 
 speechRecognition.onresult = console.log; 
 speechRecognition.start();
@@ -62,8 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
         recognition.start(); 
         $button1.textContent = "Stop listening"; 
         $main.classList.add("speaking"); 
-        remove_all_response();
-        intervalId = setInterval(get_talk, 1500);
+        intervalId = setInterval(get_talk, 1000);
 
     }; 
     const stop = () => { 
@@ -72,6 +65,8 @@ window.addEventListener("DOMContentLoaded", () => {
         $main.classList.remove("speaking"); 
         clearInterval(intervalId);
         last_talk = "";
+        remove_all_response("result");
+        remove_all_response("response");
 
     };
     const onResult = event => { 
@@ -98,6 +93,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 }); 
 
-/* talk words*/
+/* talk words */
 let last_talk = "";
 

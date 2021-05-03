@@ -12,7 +12,8 @@ module.exports = {
   mode: 'development',
   // エントリーポイントの設定
   entry: [
-    './src/js/hello.js'
+    './src/js/index.js',
+    './src/js/module/webApiCaller.js'
   ],
   // 出力の設定
   output: {
@@ -37,7 +38,8 @@ module.exports = {
             // 今回はbabel-loaderを利用しているため
             // babelのオプションを指定しているという認識で問題ない
             options: {
-              presets: [['@babel/preset-env', { modules: false }]]
+              presets: [['@babel/preset-env', { modules: false }]],
+	          plugins: ['@babel/plugin-transform-runtime']
             }
           }
         ]
