@@ -7,3 +7,4 @@ yarn.lock
 .DS_Store
 .python-version
 package-locl.json
+api_server/__pycache__
